@@ -45,16 +45,7 @@ try:
         else:
             print(f"Failed to send message: {response.text}")
         
-    else:
-        bot_token = os.environ.get('BOT_TOKEN')
-        chat_id = os.environ.get('CHAT_ID')
-        message = f'There is a no Thiefs'
-        url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-        payload = {
-            'chat_id': chat_id,
-            'text': message
-        }
-        response = requests.post(url, data=payload)
+
 except:
     bot_token = os.environ.get('BOT_TOKEN')
     chat_id = os.environ.get('CHAT_ID')
