@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ "main" ]
   schedule:
-    - cron: '*/10 * * * *'  # تشغيل عند الدقيقة 50 من كل ساعة
+    - cron: '*/5 * * * *'  # تشغيل عند الدقيقة 50 من كل ساعة
   workflow_dispatch:  
 
 permissions:
