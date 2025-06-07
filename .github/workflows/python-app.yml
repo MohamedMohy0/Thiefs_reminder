@@ -1,0 +1,46 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '*/10 * * * *'  # تشغيل عند الدقيقة 50 من كل ساعة
+  workflow_dispatch:  
+
+permissions:
+  contents: read
+    # يسمح بالتشغيل اليدوي من GitHub
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Decode Config JSON and save to file
+        run: |
+          echo "${{ secrets.CONFIG_JSON }}" | base64 --decode > Config.json
+
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install gspread google-auth requests
+
+      - name: Run Thiefs script
+        run: python Thiefs.py
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          CONFIG_JSON: ${{ secrets.CONFIG_JSON }}
