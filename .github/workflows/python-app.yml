@@ -19,7 +19,8 @@ jobs:
 
       - name: Decode Config JSON and save to file
         run: |
-          echo "$CONFIG_JSON" | base64 -d > Config.json
+          echo "${{ secrets.CONFIG_JSON }}" | base64 --decode > Config.json
+
 
       - name: Install dependencies
         run: |
