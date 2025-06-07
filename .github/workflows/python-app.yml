@@ -17,12 +17,12 @@ jobs:
         with:
           python-version: 3.11
           
-      - name: Commit updated previous_num.txt if changed
+      - name: Commit updated prev_num.txt if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add previous_num.txt
-          git diff --cached --quiet || git commit -m "Update previous_num.txt with latest count"
+          git add prev_num.txt
+          git diff --cached --quiet || git commit -m "Update prev_num.txt with latest count"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
