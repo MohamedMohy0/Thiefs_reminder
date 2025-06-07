@@ -21,26 +21,26 @@ worksheet = sh.sheet1
 
 all_values = worksheet.get_all_values()
 num_rows = len(all_values)
-prev_num_file = 'prev_num.txt'
-with open(prev_num_file, 'r') as f:
-    prev_num = int(f.read().strip())
+prev_num_sheet_url = 'https://docs.google.com/spreadsheets/d/your_prev_num_sheet_id_here/edit#gid=0'
+prev_num_sheet = gc.open_by_url(prev_num_sheet_url)
+prev_ws = prev_num_sheet.sheet1
+
+prev_num_cell = prev_ws.acell('A1').value
+prev_num = int(prev_num_cell) if prev_num_cell else 0
 if num_rows > prev_num:
+    prev_ws.update('A1', str(num_rows))
     bot_token = os.environ.get('BOT_TOKEN')
     chat_id = os.environ.get('CHAT_ID')
     message = f'There is a new Thief With Number: {num_rows}'
-    
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
     payload = {
         'chat_id': chat_id,
         'text': message
     }
-    
     response = requests.post(url, data=payload)
-    
     if response.status_code == 200:
         print("Message sent successfully!")
-        with open(prev_num_file, 'w') as f:
-            f.write(str(num_rows))
+        
     else:
         print(f"Failed to send message: {response.text}")
     
@@ -48,12 +48,10 @@ else:
     bot_token = os.environ.get('BOT_TOKEN')
     chat_id = os.environ.get('CHAT_ID')
     message = f'There is a no Thiefs'
-    
     url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
     payload = {
         'chat_id': chat_id,
         'text': message
     }
-    
     response = requests.post(url, data=payload)
     
