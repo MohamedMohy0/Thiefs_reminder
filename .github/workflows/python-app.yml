@@ -17,15 +17,17 @@ jobs:
         with:
           python-version: 3.11
           
-      - name: Commit updated prev_num.txt if changed
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add prev_num.txt
-          git diff --cached --quiet || git commit -m "Update prev_num.txt with latest count"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git diff --cached --quiet || git commit -m "Update prev_num.txt"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+          git push origin HEAD:main
+
 
 
       - name: Decode Config JSON and save to file
