@@ -57,6 +57,13 @@ try:
 
         except APIError as e:
             print("خطأ في تحديث الجدول:", e)
-
-except RefreshError as e:
-    print("فشل في تحميل بيانات الاعتماد. تأكد من صحة ملف Config.json:", e)
+except:
+    bot_token = os.environ.get('BOT_TOKEN')
+    chat_id = os.environ.get('CHAT_ID')
+    message = f'There is an Error go to check it '
+    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+    payload = {
+            'chat_id': chat_id,
+            'text': message
+        }
+    response = requests.post(url, data=payload)
