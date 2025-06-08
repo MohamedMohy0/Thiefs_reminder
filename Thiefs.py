@@ -37,7 +37,7 @@ try:
 
     if num_rows > prev_num:
         try:
-            prev_ws.update('A1', str(num_rows))
+            prev_ws.update('A1', [[str(num_rows)]])
             print("تم تحديث عدد الصفوف في الجدول الثاني.")
 
             # إرسال رسالة تيليجرام
