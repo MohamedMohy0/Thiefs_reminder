@@ -6,7 +6,7 @@ from google.oauth2.service_account import Credentials
 # قراءة ملف Config.json موجود في نفس المجلد
 SERVICE_ACCOUNT_FILE = 'Config.json'
     
-SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
+SCOPES = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/spreadsheets",  "https://www.googleapis.com/auth/drive"]
     
 credentials = Credentials.from_service_account_file(
         SERVICE_ACCOUNT_FILE,
