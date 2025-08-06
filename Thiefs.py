@@ -5,6 +5,7 @@ from google.oauth2.service_account import Credentials
 from google.auth.exceptions import RefreshError
 from gspread.exceptions import APIError
 
+
 SERVICE_ACCOUNT_FILE = 'Config.json'
 
 SCOPES = [
@@ -67,3 +68,4 @@ except:
             'text': message
         }
     response = requests.post(url, data=payload)
+
